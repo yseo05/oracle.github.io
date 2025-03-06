@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimalist Objects</title>
+    <title>Minimalist Objects - 1 Input 1 Output</title>
     <style>
         body {
             display: flex;
@@ -15,15 +15,13 @@
             background-color: #ffffff;
         }
 
-        /* 스타일 - 배경에 선들 */
         .line {
             position: absolute;
             background-color: #000;
             opacity: 0.5;
-            z-index: -1;
+            z-index: 1;
         }
 
-        /* Horizontal lines from left to right */
         .line1, .line2, .line3 {
             top: 20%;
             left: -100%;
@@ -31,7 +29,6 @@
             height: 2px;
         }
 
-        /* Vertical lines coming down from top */
         .line4, .line5, .line6 {
             left: 20%;
             top: -100%;
@@ -39,7 +36,6 @@
             height: 100%;
         }
 
-        /* Animations for the lines */
         @keyframes lineAnimationLeftToRight {
             0% {
                 left: -100%;
@@ -62,7 +58,6 @@
             }
         }
 
-        /* Apply animations */
         .line1 {
             animation: lineAnimationLeftToRight 3s ease-out forwards;
             top: 20%;
@@ -89,10 +84,16 @@
             left: 80%;
         }
 
-        /* 입력 필드 및 버튼 스타일 */
         h1 {
             font-family: 'Avenir', sans-serif;
             font-size: 36px;
+            font-weight: 100;
+            color: #333;
+        }
+
+        p {
+            font-family: 'Avenir', sans-serif;
+            font-size: 25px;
             font-weight: 100;
             color: #333;
         }
@@ -109,13 +110,15 @@
         .objects {
             display: flex;
             justify-content: center;
-            gap: -25px;
+            gap: 0px;
             margin-top: -20px;
-            width: 80%;
+            flex-wrap: wrap;
         }
 
         .object {
             text-align: center;
+            margin: 0px;
+            flex: 0 0 auto;
         }
 
         .object img {
@@ -159,19 +162,22 @@
             height: 100px;
         }
 
+        .input-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
         #charInput {
             font-size: 24px;
             padding: 10px;
             border: 2px solid #ccc;
             border-radius: 5px;
             outline: none;
-            width: 50px;
-            transition: border-color 0.3s ease;
-            margin-top: 20px;
+            width: 65px;
             text-align: center;
         }
 
-        /* 포커스 시 스타일 */
         #charInput:focus {
             border-color: #000000;
         }
@@ -188,26 +194,92 @@
             margin-top: 20px;
         }
 
-        /* 버튼 hover 효과 */
         #submitButton:hover {
             background-color: #888888;
         }
 
         #charInput, #submitButton {
-            margin-top: 20px;
+            margin-top: 10px;
+            z-index: 5;
         }
+
 
         #displayedImage {
             margin-top: 20px;
             max-width: 100%;
-            max-height: 500px;
+            max-height: 400px;
             display: none;
         }
 
+        .input-description {
+            font-size: 16px;
+            color: #555;
+            margin-top: 0px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .objects {
+                gap: 10px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .object img {
+                width: 80px;
+                height: 80px;
+            }
+
+            #charInput1, #charInput2 {
+                font-size: 20px;
+                width: 50px;
+            }
+
+            .input-container {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            #submitButton {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            .objects {
+                gap: 8px;
+            }
+
+            .object img {
+                width: 60px;
+                height: 60px;
+            }
+
+            #charInput1, #charInput2 {
+                font-size: 18px;
+                width: 45px;
+            }
+
+            .input-description {
+                font-size: 14px;
+            }
+
+            #submitButton {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- 선들 배경 -->
     <div class="line line1"></div>
     <div class="line line2"></div>
     <div class="line line3"></div>
@@ -241,13 +313,10 @@
             </div>
     </div>
 
-    <!-- 입력 필드 -->
     <input type="text" id="charInput" maxlength="1">
 
-    <!-- 버튼 -->
     <button onclick="displayImage()" id="submitButton">Show Image</button>
 
-    <!-- 이미지 -->
     <img id="displayedImage" src="" alt="Displayed Image">
 
     <script>
@@ -258,7 +327,7 @@
             "https://images.unsplash.com/photo-1582356630861-61bb9b41f541?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", //D
             "https://www.vermontcountrystore.com/ccstore/v1/images/?source=/file/v1346629000347843159/products/89999.main.png&height=475&width=475&outputFormat=JPEG", //E
             "https://m.media-amazon.com/images/I/61U4tatR8HL.jpg", //F
-            "https://nobledesigns.com/cdn/shop/files/crystal-glass-ball-noble-designs-3.png?v=1708950616", //G
+            "https://static7.depositphotos.com/1235826/769/i/450/depositphotos_7693176-stock-photo-wineglass.jpg", //G
             "https://www.kroger.com/product/images/large/front/0003579431311", //H
             "https://pfcandleco.com/cdn/shop/products/IN11_800x.jpg?v=1673024459", //I
             "https://www.ikea.com/us/en/images/products/korken-jar-with-lid-clear-glass__0713741_pe729737_s5.jpg?f=s", //J
@@ -266,7 +335,7 @@
             "https://images.food52.com/vwmdaEKp7SJq4jkmiRAE1J9uVgw=/500x500/ace84ecd-819b-4e0f-b6f7-032a087e82f2--2020-0921_blomus_minimalist-rechargable-touch-lamp_charcoal_silo_ty-mecham.jpg", //L
             "https://theapshop.com/cdn/shop/files/AP_Mirrors_Luna_Full_Moon_Frameless_Mirror_LoRES_03_1024x1024@2x.jpg?v=1691575035", //M
             "https://ndutadesigns.com/cdn/shop/files/Minimalist-Red-Rose-Spiral-Notebook-3.jpg?v=1705310092&width=1445", //N
-            "https://images.webfronts.com/cache/frpixnmgsusq.png?width=800&height=800", //O
+            "https://nobledesigns.com/cdn/shop/files/crystal-glass-ball-noble-designs-3.png?v=1708950616", //O
             "https://www.elfinview.com/wp-content/uploads/2024/06/portuguese-dinner-plates.webp", //P
             "https://nostalgicimpressions.com/cdn/shop/products/FM2919-forweb-903352_2400x.jpg", //Q
             "https://img.ssensemedia.com/images/f_auto,c_limit,h_2800,w_1725/242188F024007_1/mm6-maison-margiela-silver-numeric-ring.jpg", //R
@@ -275,7 +344,7 @@
             "https://media.istockphoto.com/id/1408839007/photo/isolated-shot-of-opened-white-umbrella-on-white-background.jpg?s=612x612&w=0&k=20&c=LrU9ErBEfT_gIQHjdtn-zZIA0UXkx0yhXEru6RPnJ6c=", //U
             "https://assets.ajio.com/medias/sys_master/root/20230419/qIcL/643f897b711cf97ba733e762/-473Wx593H-465983731-white-MODEL2.jpg", //V
             "https://images-na.ssl-images-amazon.com/images/I/512MWfc+fSL.jpg", //W
-            "https://cdn11.bigcommerce.com/s-caae1tt33v/images/stencil/1280x1280/products/4326/8435/x-acto-precision-knife-handle-2-14__34862.166803", //X
+            "https://th-thumbnailer.cdn-si-edu.com/Yeged4Hy0rslAikZhvnHo8vp1q4=/fit-in/1600x0/filters:focal(81x469:82x470)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/f5/08/f5082e8c-940b-4ee7-af2f-fcccd2595c6c/x-acto-knife.jpg", //X
             "https://lsecom.advision-ecommerce.com/apps/content/files/642/W1000-SilverBirch.jpg", //Y
             "https://www.zippo.com/cdn/shop/products/be47030bf78ee73fe45533909268739e53de8d34.jpg?v=1652187554&width=1445"  //Z
         ];
@@ -284,13 +353,11 @@
             const input = document.getElementById("charInput").value.toUpperCase();
             const imgElement = document.getElementById("displayedImage");
             
-            // 문자에 따라 이미지 표시
-            const index = input.charCodeAt(0) - 65; // 'A'는 65
+            const index = input.charCodeAt(0) - 65;
             if (index >= 0 && index < images.length) {
                 imgElement.src = images[index];
                 imgElement.style.display = "block";
             } else {
-                // 잘못된 입력이 있을 경우 기본 이미지 표시
                 imgElement.src = "img/GB.jpeg";
                 imgElement.style.display = "block";
             }
